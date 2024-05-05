@@ -267,17 +267,17 @@ for termurl in terms: # Loop over section specific terms we know about
       names[namekey]=dict()            # Add name with dict to index so it can be filled if not already defined
     for meeting in att["meetings"]:    # Loop over meetings in this term
       md=date.fromisoformat(meeting)
-      if md >= notbefore and md <= notafter # Process meetings which fall within user's requested range (from menu)
+      if md >= notbefore and md <= notafter: # Process meetings which fall within user's requested range (from menu)
         meetings[meeting]=1
         if md >= ss and md <= se:           # Process meetings for this member which fall within their membership of this section
-        for it in item:
-          if meeting in item:
-            if item[meeting] == 'Yes':
-              names[namekey][meeting]=1
+          for it in item:
+            if meeting in item:
+              if item[meeting] == 'Yes':
+                names[namekey][meeting]=1
+              else:
+                names[namekey][meeting]=0
             else:
-              names[namekey][meeting]=0
-          else:
-              names[namekey][meeting]=0  # sometimes value is not set (depending on who did register set to 0 if within date & section membership params)
+                names[namekey][meeting]=0  # sometimes value is not set (depending on who did register set to 0 if within date & section membership params)
 
 ################## Consider making names section specific or adding col for each section entry per person?
 
