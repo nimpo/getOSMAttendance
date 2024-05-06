@@ -185,48 +185,58 @@ for a in b["globals"]["roles"]:
 # Simple Menu for sections and dates
 
 sectiondict = {str(index): element for index, element in enumerate(sorted(sectionid.keys()))}
-for i in sorted(sectiondict.keys()):
-  print (i,sectiondict[i])
+menuOK=""
+while menuOK != "Y" and menuOK != "y":
+  for i in sorted(sectiondict.keys()):
+    print (i,sectiondict[i])
 
-while True:
-  get=input("Space separated list of sections to include: ")
-  got=get.split()
-  test=True
-  for i in got:
-    if i in sectiondict:
-      print(i, "selected:", sectiondict[i])
-    else:
-      print(i, "Invalid choice")
-      test=False
-  if test:
-    break
-
-while True:
-  notbeforein=input("First Date (not before YYYY-MM-DD): ").strip()
-  try:
-      notbefore=date.fromisoformat(notbeforein)
+  while True:
+    get=input("Space separated list of sections to include: ")
+    got=get.split()
+    test=True
+    for i in got:
+      if i in sectiondict:
+        print(i, "selected:", sectiondict[i])
+      else:
+        print(i, "Invalid choice")
+        test=False
+    if test:
       break
-  except ValueError:
+
+  while True:
+    notbeforein=input("First Date (not before YYYY-MM-DD): ").strip()
+    try:
+        notbefore=date.fromisoformat(notbeforein)
+        break
+    except ValueError:
+        print("Date Not Valid; Try again!")
+        continue
+
+  while True:
+    notafterin=input("Last Date (not after YYYY-MM-DD [default: today]): ").strip()
+    if notafterin == "":
+      notafter=date.today()
+      print("Using Today's date",notafter)
+      break
+    try:
+      notafter=date.fromisoformat(notafterin)
+      break
+    except ValueError:
       print("Date Not Valid; Try again!")
       continue
 
-while True:
-  notafterin=input("Last Date (not after YYYY-MM-DD [default: today]): ").strip()
-  if notafterin == "":
-    notafter=date.today()
-    print("Using Today's date",notafter)
-    break
-  try:
-    notafter=date.fromisoformat(notafterin)
-    break
-  except ValueError:
-    print("Date Not Valid; Try again!")
-    continue
 
 ########## 
 # Todo: Show user and get them to check menu choices before continuing
 
-pass
+# Check choices are good via loop
+  print("Data to fetch: ")
+  for i in got:
+    print ("  Section:",sectiondict[i])
+  print("Between {} and {} (inclusive)".format(notbefore,notafter))
+  menuOK=input("Happy with your choices? Yes/No/Abort: [y/n/A]: ").strip()
+  if menuOK == "A":
+    quit()
 
 ##################
 # Get the relevant URLs for terms in the date range and sections chosen
