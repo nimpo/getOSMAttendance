@@ -46,6 +46,7 @@ import csv
 from datetime import date, datetime, timedelta
 import time
 import webbrowser
+from tkinter import filedialog, Tk
 
 # Get secrets from .env
 load_dotenv()
@@ -283,7 +284,14 @@ for termurl in terms: # Loop over section specific terms we know about
 
 # Write to CSV
 ##############
-with open("output.csv", "w") as f:  # Should give user a way to choose location
+
+# Use tkinter to popup a save dialogue
+root = Tk()
+root.withdraw()
+file = filedialog.asksaveasfilename(defaultextension='.csv')
+
+# Write the data
+with open(file, "w") as f:
   w = csv.DictWriter(f, fieldnames=["name"]+sorted(meetings.keys()) )
   w.writeheader()
   for person in sorted(names.keys()):
