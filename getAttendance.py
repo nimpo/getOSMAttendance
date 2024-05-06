@@ -73,16 +73,21 @@ def decoraterequest(f):
       time.sleep(5)
     r = f(*args, **kwargs)
     if 'X-RateLimit-Limit' in r.headers:
-      RateLimit=r.headers['X-RateLimit-Limit']
+      RateLimit=int(r.headers['X-RateLimit-Limit'])
     if 'X-RateLimit-Remaining' in r.headers:
-      RateLimitLeft=r.headers['X-RateLimit-Remaining']
+      RateLimitLeft=int(r.headers['X-RateLimit-Remaining'])
+      if RateLimitLeft < 20:
+        print ("Nearing rate limit for API, proceed with caution.")
     if 'X-RateLimit-Reset' in r.headers:
-      RateLimitTTL=r.headers['X-RateLimit-Reset']
+      RateLimitTTL=int(r.headers['X-RateLimit-Reset'])
     if 'X-Blocked' in r.headers:
       RateLimitBlockedState=r.headers['X-Blocked']
     if r.status_code == 429:
       if "Retry-After" in r.headers:
-        HTTPWaitUntil = datetime.now()  + timedelta(seconds = r.headers['Retry-After'])
+        HTTPWaitUntil = datetime.now()  + timedelta(seconds = int(r.headers['Retry-After']))
+        print("The API says retry after {}.".format(HTTPWaitUntil))
+      print("The API is blocked. Cannot continue")
+      quit()
     elif r.status_code != 200:
       print("Something went wrong accessing URL", args[0])
       quit()
