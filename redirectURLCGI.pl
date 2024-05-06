@@ -27,5 +27,7 @@ function addURLToClipboard() {
       <tr><td><textarea rows="8" id="url" style="width:100%; word-break: break-all;">https://$ENV{'SERVER_NAME'}$ENV{'REQUEST_URI'}</textarea></td></tr>
       <tr><td align="right"><button onclick="addURLToClipboard()">Copy text</button></td></tr>
     </table>
+  </body>
+</html>
 EOF
 
