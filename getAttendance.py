@@ -258,11 +258,12 @@ for termurl in terms: # Loop over section specific terms we know about
     namekey=item['firstname']+" "+item['lastname']+" ("+str(item['scoutid'])+")"
     sectionstart=item['startdate']
     ss=date.fromisoformat(sectionstart)
-    sectionend=item['enddate'] # Can be a data string or None
-    try:
-      se=date.fromisoformat(sectionend)
-    except TypeError:
-      se=date.today()
+#    sectionend=item['enddate'] # Can be a data string or None #!!!! can be weird depending on moving on choices; probably to do with unclear last term to show in values
+#    try:
+#      se=date.fromisoformat(sectionend)
+#    except TypeError:
+#      se=date.today()
+    se=date.today()
     if not ( namekey in names ):
       names[namekey]=dict()            # Add name with dict to index so it can be filled if not already defined
     for meeting in att["meetings"]:    # Loop over meetings in this term
