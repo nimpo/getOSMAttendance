@@ -5,11 +5,11 @@ Online Scout Manager provides a place to keep membership data.
 
 This script was designed to authenticate to the Online Scout Manager site and download attendance data using the undocumented API.
 
-To use this script you will need an API key via the service https://www.onlinescoutmanager.co.uk/main.php
-As the service uses XMLHTTPRequests to load most pages via JSON I cannot give you a permalink (AFAIK). 
+To use this script you will need an API key via the service https://www.onlinescoutmanager.co.uk/main.php .
+(As the service uses XMLHTTPRequests to load most pages via JSON I cannot give you a permalink, AFAIK). 
 1. Expand "Settings" (bottom of left pane)
 2. Select "My Account Details"
-3. From the new menu on the left in the main pane select "Develpoer Tools"
+3. From the new menu on the left in the main pane select "Developer Tools"
 4. Click Create Application button (top right)
   - This will give you a client_id and client_secret: keep these secret; keep these safe
 5. Register a *Redirect URL* for your application by clicking on the application name in the "My Applications" tab
@@ -20,12 +20,12 @@ OSM_API_SECRET=<put secret here>
 OSM_API_RETURL=<put OAuth2 Callback URI here>
 ```
 # Using the code
-Once setup for OAuth2 authentication, to run this
-First make sure it's executable
+Once setup for OAuth2 authentication, to run this,
+first make sure it's executable
 ```
 chmod u+x getAttendence.py
 ```
-Then just run ```./getAttendence.py``` and follow the instructions. A browser should pop up and ask you to log into OSM. Do this, and pop the redirect url into the terminal window when promped.
+Then just run ```./getAttendence.py``` and follow the instructions. A browser should pop up and ask you to log into OSM. Do this, and copy the redirect url from the browser's addreas bar into the terminal window when promped. (Or if you deploy the perl CGI script at the same location as the *Redirect URL* there should be a copy button you can use.)
 
 # NB
 * I use GNU/linux. This code was written and tested on such a device (Ubuntu 22.04 and KDE if you must know). It may (/should) work on Windows and Mac though I haven't tested on those OSes. 
